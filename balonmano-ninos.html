@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FF6B35">
+<title>¡Aprende Balonmano! 🤾</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --orange:#FF6B35;--yellow:#FFD60A;--blue:#1B74E4;--green:#2ECC71;--red:#E74C3C;
+  --bg:#FFF9F0;--card:#FFFFFF;--text:#2C3E50;--light:#F0F4FF;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+
+/* ===== SKIP LINK ===== */
+.skip-link{position:absolute;top:-40px;left:0;background:var(--blue);color:#fff;padding:8px 16px;z-index:9999;border-radius:0 0 8px 0;font-weight:700;transition:top .2s}
+.skip-link:focus{top:0}
+
+/* ===== ANIMATIONS ===== */
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+@keyframes wiggle{0%,100%{transform:rotate(0deg)}20%{transform:rotate(-8deg)}40%{transform:rotate(8deg)}60%{transform:rotate(-5deg)}80%{transform:rotate(5deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes slideUp{from{transform:translateY(100px);opacity:0}to{transform:translateY(0);opacity:1}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== HERO ===== */
+header{background:linear-gradient(160deg,#FF6B35 0%,#FFD60A 100%);padding:2rem 1rem 3rem;text-align:center;position:relative;overflow:hidden}
+header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Ccircle cx='30' cy='30' r='8'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.mascota{font-size:5rem;display:inline-block;animation:bounce 2s ease-in-out infinite;line-height:1;margin-bottom:.5rem}
+.hero-title{font-family:'Baloo 2',sans-serif;font-size:clamp(2.2rem,7vw,4rem);font-weight:800;color:#fff;text-shadow:3px 3px 0 rgba(0,0,0,.15);line-height:1.1}
+.hero-sub{font-size:1.1rem;color:rgba(255,255,255,.9);margin:.8rem auto 1.2rem;max-width:480px;font-weight:600}
+.badge{display:inline-block;background:#fff;color:var(--orange);padding:.3rem 1rem;border-radius:50px;font-weight:800;font-size:.9rem;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+
+/* ===== GUIDE BUBBLE ===== */
+.guide{background:#fff;margin:2rem 1rem;border-radius:20px;padding:1.5rem;box-shadow:0 8px 30px rgba(0,0,0,.1);display:flex;align-items:center;gap:1rem;max-width:700px;margin-left:auto;margin-right:auto;animation:fadeUp .6s ease both}
+.guide-icon{font-size:3.5rem;animation:wiggle 3s ease-in-out infinite;flex-shrink:0}
+.guide-text{font-size:1.05rem;font-weight:700;color:var(--text)}
+.guide-text span{color:var(--orange)}
+
+/* ===== SECTIONS ===== */
+main{padding:0 1rem 2rem}
+section{max-width:800px;margin:0 auto 3rem}
+.section-title{font-family:'Baloo 2',sans-serif;font-size:1.8rem;font-weight:800;color:var(--text);text-align:center;margin-bottom:1.5rem}
+.section-title span{color:var(--orange)}
+
+/* ===== GOL CARD ===== */
+.gol-card{background:linear-gradient(135deg,var(--blue),#1558C0);border-radius:24px;padding:2.5rem;text-align:center;color:#fff;box-shadow:0 12px 40px rgba(27,116,228,.3);animation:pulse 3s ease-in-out infinite}
+.gol-big{font-family:'Baloo 2',sans-serif;font-size:clamp(4rem,15vw,8rem);font-weight:800;line-height:1;text-shadow:4px 4px 0 rgba(0,0,0,.2)}
+.gol-desc{font-size:1.2rem;font-weight:600;margin-top:.5rem;opacity:.9}
+
+/* ===== DATA CARDS GRID ===== */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem}
+.data-card{background:#fff;border-radius:20px;padding:1.5rem 1rem;text-align:center;box-shadow:0 6px 20px rgba(0,0,0,.08);transition:transform .25s,box-shadow .25s;cursor:default}
+.data-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 14px 35px rgba(0,0,0,.15)}
+.data-card .icon{font-size:2.8rem;margin-bottom:.6rem}
+.data-card .num{font-family:'Baloo 2',sans-serif;font-size:2.2rem;font-weight:800;color:var(--orange);line-height:1}
+.data-card .label{font-size:.9rem;font-weight:700;color:var(--text);margin-top:.3rem}
+
+/* ===== STEPS ===== */
+.steps{display:flex;flex-direction:column;gap:1rem}
+.step{background:#fff;border-radius:16px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1.2rem;box-shadow:0 4px 16px rgba(0,0,0,.07);transition:transform .25s}
+.step:hover{transform:translateX(8px)}
+.step-num{width:52px;height:52px;border-radius:50%;background:var(--orange);color:#fff;font-family:'Baloo 2',sans-serif;font-size:1.6rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-content .step-title{font-weight:800;font-size:1.05rem;color:var(--text)}
+.step-content .step-desc{font-size:.9rem;color:#666;margin-top:.2rem}
+
+/* ===== FIELD SVG ===== */
+.field-wrap{background:#fff;border-radius:24px;padding:1.5rem;box-shadow:0 8px 30px rgba(0,0,0,.1);overflow-x:auto}
+.field-wrap svg{width:100%;height:auto;max-width:700px;display:block;margin:0 auto}
+
+/* ===== GOALKEEPER CARD ===== */
+.gk-card{background:linear-gradient(135deg,#2ECC71,#1a9e57);border-radius:24px;padding:2rem;color:#fff;box-shadow:0 12px 40px rgba(46,204,113,.3);display:flex;gap:1.5rem;align-items:center}
+.gk-icon{font-size:4rem;flex-shrink:0}
+.gk-title{font-family:'Baloo 2',sans-serif;font-size:1.8rem;font-weight:800}
+.gk-desc{font-size:1rem;opacity:.92;margin-top:.5rem;line-height:1.5}
+
+/* ===== QUIZ ===== */
+.quiz-card{background:#fff;border-radius:24px;padding:2rem;box-shadow:0 8px 30px rgba(0,0,0,.1)}
+.quiz-question{font-family:'Baloo 2',sans-serif;font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:1.2rem;min-height:3em}
+.quiz-options{display:grid;gap:.7rem}
+.quiz-btn{background:var(--light);border:3px solid transparent;border-radius:14px;padding:.9rem 1.2rem;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;text-align:left;transition:all .2s;min-height:44px}
+.quiz-btn:hover:not(:disabled){background:#e0ebff;border-color:var(--blue);transform:translateX(4px)}
+.quiz-btn.correct{background:#d4f5e5;border-color:var(--green);color:#1a7a46}
+.quiz-btn.wrong{background:#fde8e8;border-color:var(--red);color:#a02020}
+.quiz-result{margin-top:1rem;padding:.8rem 1.2rem;border-radius:12px;font-weight:800;font-size:1.1rem;text-align:center;min-height:44px}
+.quiz-result.show-correct{background:#d4f5e5;color:#1a7a46}
+.quiz-result.show-wrong{background:#fde8e8;color:#a02020}
+.quiz-progress{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;font-size:.9rem;font-weight:700;color:#888}
+.quiz-score{font-family:'Baloo 2',sans-serif;font-size:1.1rem;color:var(--orange)}
+.next-btn{display:block;width:100%;margin-top:1rem;padding:.9rem;background:var(--orange);color:#fff;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;transition:background .2s;min-height:44px}
+.next-btn:hover{background:#e55a24}
+.next-btn:disabled{opacity:.4;cursor:default}
+
+/* ===== PWA BANNER ===== */
+#pwa-banner{position:fixed;bottom:0;left:0;right:0;background:var(--blue);color:#fff;padding:1rem;text-align:center;font-weight:700;z-index:1000;animation:slideUp .5s ease;display:none}
+#pwa-banner button{background:#fff;color:var(--blue);border:none;padding:.5rem 1.2rem;border-radius:8px;font-weight:800;cursor:pointer;margin-left:.8rem;min-height:44px}
+#pwa-close{background:transparent!important;color:#fff!important;font-size:1.3rem;padding:.3rem .8rem!important}
+
+/* ===== FOOTER ===== */
+footer{background:var(--text);color:#fff;text-align:center;padding:2rem 1rem}
+footer p{margin:.3rem 0;font-size:.95rem;opacity:.85}
+footer strong{color:var(--yellow)}
+
+@media(max-width:480px){
+  .gk-card{flex-direction:column;text-align:center}
+  .guide{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Ir al contenido principal</a>
+
+<header role="banner">
+  <div class="mascota" aria-hidden="true">🦁</div>
+  <h1 class="hero-title">¡Aprende Balonmano!</h1>
+  <p class="hero-sub">Descubre el deporte más emocionante con tu amigo Leo 🏐</p>
+  <span class="badge">🎓 Para niños de 8 a 12 años</span>
+</header>
+
+<main id="main-content">
+
+  <!-- GUÍA -->
+  <div class="guide" role="note" aria-label="Mensaje de Leo tu guía">
+    <div class="guide-icon" aria-hidden="true">🦁</div>
+    <div class="guide-text">
+      ¡Hola! Soy <span>Leo</span>, tu guía. ¿Sabes qué es el balonmano? ¡Es un deporte donde <span>¡tienes que meter goles con la mano!</span> Sigue leyendo y lo aprenderás todo 👇
+    </div>
+  </div>
+
+  <!-- IDEA CENTRAL -->
+  <section aria-labelledby="gol-title">
+    <h2 class="section-title" id="gol-title">La idea más <span>importante</span></h2>
+    <div class="gol-card" role="img" aria-label="El objetivo del balonmano es meter goles">
+      <div class="gol-big" aria-hidden="true">⚽ GOL</div>
+      <div class="gol-desc">¡El objetivo es meter más goles que el otro equipo!</div>
+    </div>
+  </section>
+
+  <!-- DATOS CLAVE -->
+  <section aria-labelledby="datos-title">
+    <h2 class="section-title" id="datos-title">Datos <span>clave</span> 🔑</h2>
+    <div class="cards-grid">
+      <div class="data-card" tabindex="0">
+        <div class="icon" aria-hidden="true">👥</div>
+        <div class="num">7</div>
+        <div class="label">jugadores por equipo</div>
+      </div>
+      <div class="data-card" tabindex="0">
+        <div class="icon" aria-hidden="true">👟</div>
+        <div class="num">3</div>
+        <div class="label">pasos máximo con el balón</div>
+      </div>
+      <div class="data-card" tabindex="0">
+        <div class="icon" aria-hidden="true">⏱️</div>
+        <div class="num">30</div>
+        <div class="label">minutos por tiempo</div>
+      </div>
+      <div class="data-card" tabindex="0">
+        <div class="icon" aria-hidden="true">📏</div>
+        <div class="num">6m</div>
+        <div class="label">zona del portero</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PASOS PARA ANOTAR -->
+  <section aria-labelledby="pasos-title">
+    <h2 class="section-title" id="pasos-title">¿Cómo se <span>anota</span> un gol? 🎯</h2>
+    <div class="steps" role="list">
+      <div class="step" role="listitem" tabindex="0">
+        <div class="step-num" aria-hidden="true">1</div>
+        <div class="step-content">
+          <div class="step-title">🏃 Corre con el balón</div>
+          <div class="step-desc">Puedes dar hasta 3 pasos sosteniendo el balón. ¡Luego debes botar o pasar!</div>
+        </div>
+      </div>
+      <div class="step" role="listitem" tabindex="0">
+        <div class="step-num" aria-hidden="true">2</div>
+        <div class="step-content">
+          <div class="step-title">🤝 Pasa a tus compañeros</div>
+          <div class="step-desc">Trabaja en equipo para acercarte a la portería. ¡El trabajo en equipo es clave!</div>
+        </div>
+      </div>
+      <div class="step" role="listitem" tabindex="0">
+        <div class="step-num" aria-hidden="true">3</div>
+        <div class="step-content">
+          <div class="step-title">🥅 ¡Lanza a portería!</div>
+          <div class="step-desc">Desde fuera de los 6 metros, lanza con fuerza. ¡Intenta sorprender al portero!</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EL CAMPO -->
+  <section aria-labelledby="campo-title">
+    <h2 class="section-title" id="campo-title">El <span>campo</span> de juego 🏟️</h2>
+    <div class="field-wrap">
+      <svg viewBox="0 0 500 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagrama del campo de balonmano con medidas">
+        <!-- Background -->
+        <rect width="500" height="280" rx="12" fill="#4CAF50"/>
+        <rect x="20" y="20" width="460" height="240" rx="8" fill="#388E3C"/>
+        <!-- Field lines -->
+        <rect x="30" y="30" width="440" height="220" fill="none" stroke="#fff" stroke-width="2.5"/>
+        <!-- Center line -->
+        <line x1="250" y1="30" x2="250" y2="250" stroke="#fff" stroke-width="2"/>
+        <!-- Center circle -->
+        <circle cx="250" cy="140" r="25" fill="none" stroke="#fff" stroke-width="2"/>
+        <!-- Goal areas left -->
+        <path d="M30,95 Q110,95 110,140 Q110,185 30,185" fill="none" stroke="#fff" stroke-width="2.5"/>
+        <path d="M30,110 Q85,110 85,140 Q85,170 30,170" fill="rgba(255,255,255,0.15)" stroke="#FFD60A" stroke-width="2" stroke-dasharray="5,3"/>
+        <!-- Goal areas right -->
+        <path d="M470,95 Q390,95 390,140 Q390,185 470,185" fill="none" stroke="#fff" stroke-width="2.5"/>
+        <path d="M470,110 Q415,110 415,140 Q415,170 470,170" fill="rgba(255,255,255,0.15)" stroke="#FFD60A" stroke-width="2" stroke-dasharray="5,3"/>
+        <!-- Goals -->
+        <rect x="18" y="122" width="12" height="36" fill="#fff" stroke="#ccc" stroke-width="1.5" rx="2"/>
+        <rect x="470" y="122" width="12" height="36" fill="#fff" stroke="#ccc" stroke-width="1.5" rx="2"/>
+        <!-- 7m lines -->
+        <line x1="90" y1="133" x2="90" y2="147" stroke="#fff" stroke-width="3"/>
+        <line x1="410" y1="133" x2="410" y2="147" stroke="#fff" stroke-width="3"/>
+        <!-- Dimensions -->
+        <text x="250" y="16" text-anchor="middle" font-size="11" fill="#FFD60A" font-family="Nunito,sans-serif" font-weight="700">20 m</text>
+        <text x="8" y="143" text-anchor="middle" font-size="11" fill="#FFD60A" font-family="Nunito,sans-serif" font-weight="700" transform="rotate(-90,8,143)">40 m</text>
+        <!-- Labels -->
+        <text x="60" y="200" text-anchor="middle" font-size="10" fill="#FFD60A" font-family="Nunito,sans-serif" font-weight="700">6m</text>
+        <text x="90" y="155" text-anchor="middle" font-size="10" fill="#fff" font-family="Nunito,sans-serif" font-weight="700">7m</text>
+        <!-- Player emojis -->
+        <text x="240" y="100" font-size="16" text-anchor="middle">🤾</text>
+        <text x="200" y="150" font-size="14" text-anchor="middle">🏃</text>
+        <text x="270" y="170" font-size="14" text-anchor="middle">🏃</text>
+        <text x="26" y="145" font-size="14" text-anchor="middle">🧤</text>
+        <text x="474" y="145" font-size="14" text-anchor="middle">🧤</text>
+      </svg>
+      <p style="text-align:center;font-size:.85rem;color:#888;margin-top:.8rem;font-weight:600">🟡 Zona punteada = Área del portero (¡solo él puede entrar!)</p>
+    </div>
+  </section>
+
+  <!-- EL PORTERO -->
+  <section aria-labelledby="portero-title">
+    <h2 class="section-title" id="portero-title">El <span>Portero</span> 🧤</h2>
+    <div class="gk-card">
+      <div class="gk-icon" aria-hidden="true">🧤</div>
+      <div>
+        <div class="gk-title">¡El jugador más especial!</div>
+        <div class="gk-desc">
+          El portero es el único que puede entrar en la zona de los 6 metros. Necesita ser muy rápido y ágil. ¡Casi todos los contraataques del equipo empiezan con sus manos! La jugada más importante es defender el lanzamiento de 7 metros (penalti).
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section aria-labelledby="quiz-title">
+    <h2 class="section-title" id="quiz-title">¡Demuestra lo que <span>aprendiste</span>! 🧠</h2>
+    <div class="quiz-card">
+      <div class="quiz-progress">
+        <span id="q-counter">Pregunta 1 de 4</span>
+        <span class="quiz-score">⭐ <span id="score-display">0</span> puntos</span>
+      </div>
+      <div class="quiz-question" id="quiz-q" aria-live="polite"></div>
+      <div class="quiz-options" id="quiz-opts" role="group" aria-label="Opciones de respuesta"></div>
+      <div class="quiz-result" id="quiz-result" aria-live="assertive" role="status"></div>
+      <button class="next-btn" id="next-btn" aria-label="Siguiente pregunta" disabled>Siguiente ➡️</button>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>🤾 <strong>¡Aprende Balonmano!</strong> — Infografía interactiva para niños</p>
+  <!-- ✏️ REEMPLAZA: escribe tu nombre y apellido aquí -->
+  <p>Creado por: <strong>[Tu Nombre y Apellido]</strong></p>
+  <p style="margin-top:.8rem;font-size:1.1rem">🦁 "¡Practica, diviértete y nunca pares de aprender!" 🌟</p>
+</footer>
+
+<!-- PWA Banner -->
+<div id="pwa-banner" role="complementary" aria-label="Instalar aplicación">
+  📲 ¡Instala esta app para usarla sin internet!
+  <button id="pwa-install-btn" aria-label="Instalar aplicación">Instalar</button>
+  <button id="pwa-close" aria-label="Cerrar aviso">✕</button>
+</div>
+
+<script>
+// ===== QUIZ =====
+const questions=[
+  {q:"¿Cuántos jugadores tiene cada equipo en el campo?",opts:["5","6","7","9"],ans:2},
+  {q:"¿Cuántos pasos puedes dar con el balón sin botar?",opts:["1","2","3","5"],ans:2},
+  {q:"¿Cuánto dura cada tiempo en el balonmano?",opts:["20 minutos","25 minutos","30 minutos","45 minutos"],ans:2},
+  {q:"¿De qué está hecho el balón de balonmano?",opts:["Goma","Cuero","Plástico","Tela"],ans:1}
+];
+let curr=0,score=0,answered=false;
+function loadQ(){
+  const q=questions[curr];
+  document.getElementById('quiz-q').textContent=q.q;
+  document.getElementById('q-counter').textContent=`Pregunta ${curr+1} de ${questions.length}`;
+  const opts=document.getElementById('quiz-opts');
+  opts.innerHTML='';
+  q.opts.forEach((o,i)=>{
+    const btn=document.createElement('button');
+    btn.className='quiz-btn';
+    btn.textContent=o;
+    btn.setAttribute('aria-label',`Opción: ${o}`);
+    btn.addEventListener('click',()=>answer(i,q.ans));
+    opts.appendChild(btn);
+  });
+  document.getElementById('quiz-result').textContent='';
+  document.getElementById('quiz-result').className='quiz-result';
+  document.getElementById('next-btn').disabled=true;
+  answered=false;
+}
+function answer(chosen,correct){
+  if(answered)return;
+  answered=true;
+  const btns=document.querySelectorAll('.quiz-btn');
+  btns.forEach(b=>b.disabled=true);
+  const res=document.getElementById('quiz-result');
+  if(chosen===correct){
+    btns[chosen].classList.add('correct');
+    res.textContent='✅ ¡Correcto! ¡Muy bien!';
+    res.className='quiz-result show-correct';
+    score++;
+    document.getElementById('score-display').textContent=score;
+  } else {
+    btns[chosen].classList.add('wrong');
+    btns[correct].classList.add('correct');
+    res.textContent='❌ ¡Casi! La respuesta correcta estaba destacada en verde.';
+    res.className='quiz-result show-wrong';
+  }
+  document.getElementById('next-btn').disabled=false;
+}
+document.getElementById('next-btn').addEventListener('click',()=>{
+  curr++;
+  if(curr<questions.length){
+    loadQ();
+  } else {
+    const card=document.querySelector('.quiz-card');
+    card.innerHTML=`<div style="text-align:center;padding:1rem">
+      <div style="font-size:3rem;margin-bottom:1rem">${score>=3?'🏆':'🌟'}</div>
+      <h3 style="font-family:'Baloo 2',sans-serif;font-size:1.8rem;color:var(--orange)">¡Terminaste!</h3>
+      <p style="font-size:1.3rem;margin:1rem 0;font-weight:700">Obtuviste <strong>${score}</strong> de <strong>${questions.length}</strong> puntos</p>
+      <p style="color:#666">${score===4?'¡Eres un experto en balonmano! 🥇':score>=2?'¡Bien hecho! Sigue practicando 💪':'¡Vuelve a leer y lo lograrás! 📚'}</p>
+      <button class="next-btn" style="margin-top:1.5rem" onclick="location.reload()">🔄 Jugar de nuevo</button>
+    </div>`;
+  }
+});
+loadQ();
+
+// ===== PWA =====
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();deferredPrompt=e;
+  const banner=document.getElementById('pwa-banner');
+  banner.style.display='block';
+});
+document.getElementById('pwa-install-btn').addEventListener('click',()=>{
+  if(deferredPrompt){deferredPrompt.prompt();deferredPrompt=null;}
+  document.getElementById('pwa-banner').style.display='none';
+});
+document.getElementById('pwa-close').addEventListener('click',()=>{
+  document.getElementById('pwa-banner').style.display='none';
+});
+
+// ===== SERVICE WORKER =====
+if('serviceWorker' in navigator){
+  const swCode=`
+    self.addEventListener('install',e=>e.waitUntil(caches.open('balonmano-ninos-v1').then(c=>c.addAll(['/']))));
+    self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));
+  `;
+  const blob=new Blob([swCode],{type:'application/javascript'});
+  const swUrl=URL.createObjectURL(blob);
+  navigator.serviceWorker.register(swUrl).catch(()=>{});
+}
+</script>
+</body>
+</html>
